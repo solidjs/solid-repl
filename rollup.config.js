@@ -1,7 +1,6 @@
 import del from 'rollup-plugin-delete';
 import cjs from '@rollup/plugin-commonjs';
 import { babel } from '@rollup/plugin-babel';
-import { terser } from 'rollup-plugin-terser';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 import pkg from './package.json';
@@ -49,7 +48,6 @@ const config = {
     }),
     nodeResolve({ extensions, browser: true }),
     cjs({ extensions }),
-    terser(),
   ],
 };
 
