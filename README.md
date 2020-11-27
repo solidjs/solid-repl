@@ -4,19 +4,19 @@ A re-usable [solid](https://github.com/ryansolid/solid) component that provides 
 
 ## TODOs
 
-- [] Produce a consumable package
-- [] Have a way to test the package within the repository (either via test or a simple playground that imports the compiled output)
-- [] Make [worker.ts](./src/worker.ts) an actual worker. [comlink](https://github.com/GoogleChromeLabs/comlink) could make this easier. We need to see how we can manage lazy loaded packages in a Web Worker and how to package it for end user.
-- [] Debouncing [the compile function](./src/solid-repl.tsx#L34) to avoid a bazillion rollup compilations
-- [] Handle rollup/babel errors
-- [] Make CodeMirror more friendlier
-- [] Making the REPL reponsive
-- [] Showing output compilation
-- [] Having an option to save state (either via an URL or/and localStorage)
-- [] Provide a way to change solid's compiler version
-- [] Show a console for console logs
-- [] Implements some sort of fake HMR to avoid full reload (might be done through iframe message communication)
-- [] Improve bundle size
+- [ ] Produce a consumable package
+- [ ] Have a way to test the package within the repository (either via test or a simple playground that imports the compiled output)
+- [ ] Make [worker.ts](./src/worker.ts) an actual worker. [comlink](https://github.com/GoogleChromeLabs/comlink) could make this easier. We need to see how we can manage lazy loaded packages in a Web Worker and how to package it for end user.
+- [ ] Debouncing [the compile function](./src/solid-repl.tsx#L34) to avoid a bazillion rollup compilations
+- [ ] Handle rollup/babel errors
+- [ ] Make CodeMirror more friendlier
+- [ ] Making the REPL reponsive
+- [ ] Showing output compilation
+- [ ] Having an option to save state (either via an URL or/and localStorage)
+- [ ] Provide a way to change solid's compiler version
+- [ ] Show a console for console logs
+- [ ] Implements some sort of fake HMR to avoid full reload (might be done through iframe message communication)
+- [ ] Improve bundle size
 
 ## Usage
 
