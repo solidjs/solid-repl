@@ -11,25 +11,12 @@ const extensions = ['.ts', '.js', '.tsx'];
  * @type {import('rollup').RollupOptions}
  */
 const config = {
-  input: ['src/solid-repl.tsx'],
-  output: [
-    {
-      dir: pkg.module.replace('/solid-repl.js', ''),
-      format: 'esm',
-      sourcemap: 'hidden',
-    },
-    {
-      dir: pkg.main.replace('/solid-repl.js', ''),
-      format: 'cjs',
-      sourcemap: 'hidden',
-    },
-  ],
-  treeshake: {
-    moduleSideEffects: false,
-    propertyReadSideEffects: false,
-    tryCatchDeoptimization: false,
+  input: 'src/solid-repl.tsx',
+  output: {
+    dir: pkg.module.replace('/solid-repl.js', ''),
+    format: 'esm',
+    sourcemap: 'hidden',
   },
-  strictDeprecations: true,
   external: [
     'solid-js',
     'solid-js/web',

@@ -10,13 +10,12 @@
     "url": "https://github.com/ryansolid/solid-repl.git"
   },
   "type": "module",
-  "main": "./dist/cjs/solid-repl.js",
-  "module": "./dist/esm/solid-repl.js",
-  "types": "./dist/types/solid-repl.d.ts",
+  "main": "dist/raw/solid-repl.jsx",
+  "module": "dist/esm/solid-repl.js",
+  "types": "dist/types/solid-repl.d.ts",
   "exports": {
-    ".": "./dist/esm/solid-repl.js",
-    "./cjs": "./dist/cjs/solid-repl.js",
-    "./raw": "./dist/raw/solid-repl.jsx"
+    ".": "./dist/raw/solid-repl.jsx",
+    "./cdn": "./dist/esm/solid-repl.js"
   },
   "files": [
     "dist"
