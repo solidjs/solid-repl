@@ -11,6 +11,7 @@
     "resolveJsonModule": true,
     "newLine": "lf",
     "outDir": "./dist/raw",
+    "sourceMap": true
   },
   "include": ["./src"],
   "exclude": ["node_modules/"]

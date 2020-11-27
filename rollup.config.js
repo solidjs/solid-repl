@@ -17,10 +17,12 @@ const config = {
     {
       dir: pkg.module.replace('/solid-repl.js', ''),
       format: 'esm',
+      sourcemap: 'hidden',
     },
     {
       dir: pkg.main.replace('/solid-repl.js', ''),
       format: 'cjs',
+      sourcemap: 'hidden',
     },
   ],
   treeshake: {
