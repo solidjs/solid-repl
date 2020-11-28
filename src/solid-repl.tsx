@@ -3,7 +3,7 @@ import { createComputed, createEffect, createSignal } from 'solid-js';
 import ow from 'oceanwind';
 import { For, Show } from 'solid-js/web';
 
-import { Tab } from './store';
+import { ReplTab } from './store';
 import { StoreProvider, useStore } from './store';
 import { compile } from './worker';
 
@@ -140,9 +140,9 @@ export const Repl: Component<Props> = (props) => {
   );
 };
 
-export type { Tab } from './store';
+export type { ReplTab } from './store';
 
 interface Props {
   interactive?: boolean;
-  tabs: Pick<Tab, 'name' | 'source'>[];
+  tabs?: ReplTab[];
 }

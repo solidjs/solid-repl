@@ -10,7 +10,7 @@ const defaultTabs = [
   },
 ];
 
-function createStore(initialTabs?: Pick<Tab, 'name' | 'source'>[]) {
+function createStore(initialTabs?: ReplTab[]) {
   const [state, setState] = createState<{ current: number; tabs: Tab[] }>({
     current: 0,
     tabs: initialTabs
@@ -91,6 +91,8 @@ export interface Tab {
   source: string;
 }
 
+export type ReplTab = Pick<Tab, 'name' | 'source'>;
+
 interface Props {
-  tabs?: Pick<Tab, 'name' | 'source'>[];
+  tabs?: ReplTab[];
 }
