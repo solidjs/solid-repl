@@ -30,11 +30,35 @@ export async function loadBabel(_SOLID_VERSION: string) {
   if (globalThis.$babel) return globalThis.$babel;
 
   const { transform } = await import('@babel/standalone');
-  const solid = await import(`babel-preset-solid`);
+  const jsxTransform = await import(`babel-plugin-jsx-dom-expressions`);
 
   globalThis.$babel = (code: string, opts?: any) =>
     transform(code, {
-      presets: [solid],
+      plugins: [
+        [
+          jsxTransform,
+          {
+            moduleName: 'solid-js/web',
+            builtIns: [
+              'For',
+              'Show',
+              'Switch',
+              'Match',
+              'Suspense',
+              'SuspenseList',
+              'Portal',
+              'Index',
+              'Dynamic',
+              'ErrorBoundary',
+            ],
+            delegateEvents: true,
+            contextToCustomElements: true,
+            wrapConditionals: true,
+            wrapSpreads: false,
+            generate: 'dom',
+          },
+        ],
+      ],
       ...opts,
     });
 
