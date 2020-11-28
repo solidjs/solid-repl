@@ -24,7 +24,6 @@
     "build": "rollup -c && tsc",
     "dev": "rollup -c -w",
     "format": "prettier --write \"src/**/*.{jsx,tsx,ts,js,json}\"",
-    "preinstall": "npx only-allow pnpm",
     "prepublishOnly": "pnpm build"
   },
   "peerDependencies": {
