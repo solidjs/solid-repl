@@ -23,7 +23,7 @@ const config = {
     /codemirror.*/,
     /rollup.*/,
     '@babel/standalone',
-    'babel-preset-solid',
+    'babel-plugin-jsx-dom-expressions',
     'oceanwind',
   ],
   plugins: [
