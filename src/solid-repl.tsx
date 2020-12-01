@@ -71,11 +71,11 @@ export const Repl: Component<ReplOptions> = (props) => {
   });
 
   const src = createMemo(() => {
-    const url = new URL(internal.baseUrl);
+    const url = new URL(internal.baseUrl || 'https://playground.solidjs.com');
     url.hash = compressToEncodedURIComponent(JSON.stringify(tabs()));
 
-    if (props.withHeader) url.searchParams.set('withHeader', 'true');
-    if (props.isInteractive) url.searchParams.set('isInteractive', 'true');
+    if (!props.withHeader) url.searchParams.set('noHeader', 'true');
+    if (!props.isInteractive) url.searchParams.set('noInteractive', 'true');
 
     return url.toString();
   });
@@ -96,7 +96,7 @@ export const Repl: Component<ReplOptions> = (props) => {
 
 export interface ReplOptions
   extends JSX.IframeHTMLAttributes<HTMLIFrameElement> {
-  baseUrl: string;
+  baseUrl?: string;
   height?: number;
   isInteractive?: boolean;
   withHeader?: boolean;
