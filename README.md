@@ -2,7 +2,10 @@
 
 A re-usable [solid](https://github.com/ryansolid/solid) component that provides an embedable REPL.
 
+
 ## Usage
+
+[Demo available here](https://codesandbox.io/s/solid-repl-example-xr6de?file=/src/index.tsx)
 
 ### Installation
 
@@ -50,6 +53,23 @@ const App = () => {
 
 render(App, document.getElementById('app')!);
 ```
+
+### Options
+
+#### Repl options
+
+| name            | required | type    | default                           | description              | 
+| --------------- | -------- | ------- | --------------------------------- | ------------------------ | 
+| `baseUrl`       | false    | string  | `https://playground.solidjs.com/` | The source of the iframe | 
+| `height`        | false    | number  | `250`                             | The height in pixel      | 
+| `withHeader`    | false    | boolean | `false`                           | Whether to show or not   | 
+| `isInteractive` | false    | boolean | `false`                           | Whether to show or not   | 
+
+#### ReplTab options
+
+| name   | required | type   | default | description     | 
+| ------ | -------- | ------ | ------- | --------------- | 
+| `name` | true     | string | -       | Name of the tab | 
 
 ## Contributing
 
