@@ -1,7 +1,19 @@
-# [WIP] solid-repl
+# Solid REPL
 
 A re-usable [solid](https://github.com/ryansolid/solid) component that provides an embedable REPL.
 
+- [Solid REPL](#solid-repl)
+  - [Usage](#usage)
+    - [Installation](#installation)
+    - [In practice](#in-practice)
+    - [Options](#options)
+      - [Repl options](#repl-options)
+      - [ReplTab options](#repltab-options)
+  - [Contributing](#contributing)
+  - [Technical details](#technical-details)
+    - [How does it work?](#how-does-it-work)
+  - [TODOs](#todos)
+  - [Credits](#credits)
 
 ## Usage
 
@@ -20,9 +32,9 @@ pnpm add solid-repl
 yarn add solid-repl
 ```
 
-### Usage
+### In practice
 
-In a nutshell:
+In a nutshell this is how you'd use it:
 
 ```tsx
 import { Repl, ReplTab } from 'solid-repl';
@@ -58,12 +70,12 @@ render(App, document.getElementById('app')!);
 
 #### Repl options
 
-| name            | required | type    | default                           | description              | 
-| --------------- | -------- | ------- | --------------------------------- | ------------------------ | 
-| `baseUrl`       | false    | string  | `https://playground.solidjs.com/` | The source of the iframe | 
-| `height`        | false    | number  | `250`                             | The height in pixel      | 
-| `withHeader`    | false    | boolean | `false`                           | Whether to show or not   | 
-| `isInteractive` | false    | boolean | `false`                           | Whether to show or not   | 
+| name            | required | type    | default                           | description                       | 
+| --------------- | -------- | ------- | --------------------------------- | --------------------------------- | 
+| `baseUrl`       | false    | string  | `https://playground.solidjs.com/` | The source of the iframe          | 
+| `height`        | false    | number  | `250`                             | The height in pixel               | 
+| `withHeader`    | false    | boolean | `false`                           | Whether to show or not            | 
+| `isInteractive` | false    | boolean | `false`                           | Whether it's interactive or not   | 
 
 #### ReplTab options
 
@@ -85,8 +97,8 @@ In order to contribute you can :
 
 ## Technical details
 
-This package is a simple wrapper around the solid playground as an iframe.
-The below information are related to the content of the iframe.
+This package is a simple wrapper around the [solid playground](https://github.com/ryansolid/solid-playground) as an iframe.
+**The below information are related to the solid-playground of the iframe.**
 
 ### How does it work?
 
@@ -113,7 +125,7 @@ In order to mitigate that, babel, solid compiler (which is a babel preset) and r
 - [x] Implements some sort of fake HMR to avoid full reload (might be done through iframe message communication)
 - [x] Improve bundle size
 
-### Credits
+## Credits
 
 Technologies/libraries used to make this possible:
 
