@@ -28,7 +28,7 @@
     "build": "rollup -c && tsc",
     "dev": "rollup -c -w",
     "format": "prettier --write \"src/**/*.{jsx,tsx,ts,js,json}\"",
-    "test": "parcel src/index.html",
+    "test": "parcel playground/index.html",
     "prepublishOnly": "pnpm build"
   },
   "peerDependencies": {

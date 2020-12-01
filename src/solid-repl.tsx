@@ -74,6 +74,9 @@ export const Repl: Component<ReplOptions> = (props) => {
     const url = new URL(internal.baseUrl);
     url.hash = compressToEncodedURIComponent(JSON.stringify(tabs()));
 
+    if (props.withHeader) url.searchParams.set('withHeader', 'true');
+    if (props.isInteractive) url.searchParams.set('isInteractive', 'true');
+
     return url.toString();
   });
 
@@ -95,6 +98,8 @@ export interface ReplOptions
   extends JSX.IframeHTMLAttributes<HTMLIFrameElement> {
   baseUrl: string;
   height?: number;
+  isInteractive?: boolean;
+  withHeader?: boolean;
 }
 
 export interface Tab {

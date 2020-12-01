@@ -3,7 +3,11 @@ import { render } from 'solid-js/web';
 
 const App = () => {
   return (
-    <Repl baseUrl="http://solid-template-explorer.netlify.app" height={500}>
+    <Repl
+      baseUrl="https://solid-playground.netlify.app"
+      height={500}
+      isInteractive
+    >
       <ReplTab name="main">
         {`
           import { render } from 'solid-js/web';
