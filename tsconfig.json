@@ -13,6 +13,6 @@
     "outDir": "./dist/raw",
     "sourceMap": true
   },
-  "include": ["./src"],
+  "include": ["./src", "playground/app.tsx"],
   "exclude": ["node_modules/"]
 }

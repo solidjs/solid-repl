@@ -12,20 +12,19 @@ const extensions = ['.ts', '.js', '.tsx'];
  */
 const config = {
   input: 'src/solid-repl.tsx',
-  output: {
-    dir: pkg.module.replace('/solid-repl.js', ''),
-    format: 'esm',
-    sourcemap: 'hidden',
-  },
-  external: [
-    'solid-js',
-    'solid-js/web',
-    /codemirror.*/,
-    /rollup.*/,
-    '@babel/standalone',
-    'babel-plugin-jsx-dom-expressions',
-    'oceanwind',
+  output: [
+    {
+      dir: pkg.module.replace('/solid-repl.js', ''),
+      format: 'esm',
+      sourcemap: 'hidden',
+    },
+    {
+      dir: pkg.main.replace('/solid-repl.js', ''),
+      format: 'cjs',
+      sourcemap: 'hidden',
+    },
   ],
+  external: ['solid-js', 'solid-js/web', 'lz-string'],
   plugins: [
     del({ targets: 'dist/*' }),
     babel({
