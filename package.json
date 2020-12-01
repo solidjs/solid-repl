@@ -3,7 +3,7 @@
   "description": "A REPL for SolidJS",
   "author": "Alexandre Mouton-Brady",
   "license": "MIT",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "homepage": "https://github.com/ryansolid/solid-repl#readme",
   "repository": {
     "type": "git",
