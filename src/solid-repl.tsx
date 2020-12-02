@@ -1,148 +1,110 @@
+import { Show } from 'solid-js/web';
 import type { Component } from 'solid-js';
-import { createComputed, createEffect, createSignal } from 'solid-js';
-import ow from 'oceanwind';
-import { For, Show } from 'solid-js/web';
+import { createMemo, splitProps } from 'solid-js';
+import { compressToEncodedURIComponent } from 'lz-string';
 
-import { ReplTab } from './store';
-import { StoreProvider, useStore } from './store';
-import { compile } from './worker';
+function uid() {
+  const [ts, rand] = [performance.now(), Math.random()].map((value) =>
+    value.toString(36),
+  );
 
-import Editor from './components/editor';
-import Output from './components/output';
-import TabList from './components/tab/list';
-import TabItem from './components/tab/item';
+  return (ts + rand).replace(/\./g, '');
+}
 
-const ReplBody: Component<{ interactive: boolean }> = (props) => {
-  const [store, actions] = useStore();
+function childrensToArray<T = unknown>(children: unknown | unknown[]): T[] {
+  return [...(Array.isArray(children) ? children : [children])];
+}
 
-  const [code, setCode] = createSignal('');
-  const [edit, setEdit] = createSignal(-1);
+function formatCode(code: string) {
+  const lines = code.split('\n');
 
-  const refs = new Map<number, HTMLSpanElement>();
+  let mindent: number | null = null;
+  let result = code.replace(/\\\n[ \t]*/g, '').replace(/\\`/g, '`');
 
-  createEffect(() => {
-    if (edit() < 0) return;
-    const ref = refs.get(edit());
-    if (!ref) return;
+  for (const line of lines) {
+    const m = line.match(/^(\s+)\S+/);
 
-    ref.focus();
+    if (!m) continue;
+    const indent = m[1].length;
+    mindent = mindent ? Math.min(mindent, indent) : indent;
+  }
+
+  console.log({ mindent });
+
+  if (mindent !== null) {
+    result = lines
+      .map((line) => (line[0] === ' ' ? line.slice(mindent) : line))
+      .join('\n');
+  }
+
+  return result.trim().replace(/\\n/g, '\n');
+}
+
+export const ReplTab = (props: {
+  name: string;
+  children?: unknown | unknown[];
+}) => {
+  const id = uid();
+
+  return createMemo(() => {
+    console.log(props.children);
+    const source = childrensToArray(props.children).join('');
+
+    return ({
+      id,
+      name: props.name,
+      source: formatCode(source),
+      type: 'tsx',
+    } as unknown) as JSX.Element;
+  });
+};
+
+export const Repl: Component<ReplOptions> = (props) => {
+  const [internal, external] = splitProps(props, [
+    'height',
+    'baseUrl',
+    'children',
+  ]);
+
+  const tabs = createMemo(() => {
+    return childrensToArray<() => Tab>(internal.children).map((tab) => tab());
   });
 
-  createComputed(() => {
-    for (const tab of store.tabs) tab.source;
-    // TODO: Find a way to throttle / debounce this
-    compile(store.tabs).then(setCode);
+  const src = createMemo(() => {
+    const url = new URL(internal.baseUrl || 'https://playground.solidjs.com');
+    url.hash = compressToEncodedURIComponent(JSON.stringify(tabs()));
+
+    if (!props.withHeader) url.searchParams.set('noHeader', 'true');
+    if (!props.isInteractive) url.searchParams.set('noInteractive', 'true');
+
+    return url.toString();
   });
 
   return (
-    <main
-      class={ow(['grid', 'grid-cols-2', 'bg-gray-200'])}
-      style={{
-        'grid-template-rows': 'auto 250px',
-        'column-gap': '2px',
-      }}
+    <Show
+      when={tabs().length}
+      fallback={<p>The REPL needs to have at least one tab</p>}
     >
-      <TabList>
-        <For each={store.tabs}>
-          {(tab, index) => (
-            <TabItem active={store.current === index()}>
-              <button
-                type="button"
-                onClick={[actions.setCurrentTab, index()]}
-                onDblClick={() => index() > 0 && setEdit(index())}
-                class={ow([
-                  'border-0',
-                  'bg-transparent',
-                  'text-current',
-                  'cursor-pointer',
-                  'pr-0',
-                ])}
-              >
-                <span
-                  ref={(el) => refs.set(index(), el)}
-                  contentEditable={store.current === index() && edit() >= 0}
-                  onBlur={(e) => {
-                    setEdit(-1);
-                    actions.setTabName(index(), e.target.textContent!);
-                  }}
-                >
-                  {tab.name}
-                </span>
-                <span>.{tab.type}</span>
-              </button>
-
-              <Show when={index() > 0}>
-                <button
-                  type="button"
-                  class={ow([
-                    'border-0',
-                    'bg-transparent',
-                    'text-current',
-                    'cursor-pointer',
-                  ])}
-                  onClick={[actions.removeTab, index()]}
-                >
-                  &times;
-                </button>
-              </Show>
-            </TabItem>
-          )}
-        </For>
-
-        <TabItem>
-          <button onClick={actions.addTab} title="Add a new tab">
-            {/* <span class={ow(["sr-only"])}>Add a new tab</span> */}
-            <svg
-              viewBox="0 0 24 24"
-              style="stroke: currentColor; fill: none;"
-              class={ow(['h-6'])}
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-              />
-            </svg>
-          </button>
-        </TabItem>
-      </TabList>
-
-      <Editor
-        disabled={!props.interactive}
-        value={actions.currentTab.source}
-        onDocChange={actions.setCurrentSource}
-        class={ow(['col-start-1', 'row-start-2', 'h-full', 'bg-white', 'p-3'])}
+      <iframe
+        {...external}
+        src={src()}
+        style={{ width: '100%', height: `${internal.height}px`, border: 0 }}
       />
-
-      <Output
-        code={code()}
-        class={ow([
-          'row-start-2',
-          'col-start-2',
-          'block',
-          'w-full',
-          'h-full',
-          'border-0',
-          'bg-white',
-          'p-3',
-        ])}
-      />
-    </main>
+    </Show>
   );
 };
 
-export const Repl: Component<Props> = (props) => {
-  return (
-    <StoreProvider tabs={props.tabs}>
-      <ReplBody interactive={Boolean(props.interactive)} />
-    </StoreProvider>
-  );
-};
+export interface ReplOptions
+  extends JSX.IframeHTMLAttributes<HTMLIFrameElement> {
+  baseUrl?: string;
+  height?: number;
+  isInteractive?: boolean;
+  withHeader?: boolean;
+}
 
-export type { ReplTab } from './store';
-
-interface Props {
-  interactive?: boolean;
-  tabs?: ReplTab[];
+export interface Tab {
+  id: string;
+  name: string;
+  type: string;
+  source: string;
 }
