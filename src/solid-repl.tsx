@@ -1,5 +1,5 @@
 import { Show } from 'solid-js/web';
-import type { Component } from 'solid-js';
+import type { Component, JSX } from 'solid-js';
 import { createMemo, splitProps } from 'solid-js';
 import { compressToEncodedURIComponent } from 'lz-string';
 
@@ -29,8 +29,6 @@ function formatCode(code: string) {
     mindent = mindent ? Math.min(mindent, indent) : indent;
   }
 
-  console.log({ mindent });
-
   if (mindent !== null) {
     result = lines
       .map((line) => (line[0] === ' ' ? line.slice(mindent) : line))
@@ -47,7 +45,6 @@ export const ReplTab = (props: {
   const id = uid();
 
   return createMemo(() => {
-    console.log(props.children);
     const source = childrensToArray(props.children).join('');
 
     return ({
