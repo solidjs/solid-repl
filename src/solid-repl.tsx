@@ -85,7 +85,14 @@ export const Repl: Component<ReplOptions> = (props) => {
       <iframe
         {...external}
         src={src()}
-        style={{ width: '100%', height: `${internal.height}px`, border: 0 }}
+        style={{
+          width: '100%',
+          height:
+            typeof internal.height === 'number'
+              ? `${internal.height}px`
+              : internal.height,
+          border: 0,
+        }}
       />
     </Show>
   );
@@ -94,7 +101,7 @@ export const Repl: Component<ReplOptions> = (props) => {
 export interface ReplOptions
   extends JSX.IframeHTMLAttributes<HTMLIFrameElement> {
   baseUrl?: string;
-  height?: number;
+  height?: number | string;
   isInteractive?: boolean;
   withHeader?: boolean;
 }
