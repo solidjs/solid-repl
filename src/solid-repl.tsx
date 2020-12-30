@@ -1,5 +1,5 @@
 import { Show } from 'solid-js/web';
-import type { Component, JSX } from 'solid-js';
+import type { JSX } from 'solid-js';
 import { createMemo, splitProps } from 'solid-js';
 import { compressToEncodedURIComponent } from 'lz-string';
 
@@ -56,30 +56,39 @@ export const ReplTab = (props: {
   });
 };
 
-export const Repl: Component<ReplOptions> = (props) => {
+export const Repl = (props: ReplOptions) => {
   const [internal, external] = splitProps(props, [
+    'data',
     'height',
     'baseUrl',
     'children',
+    'isInteractive',
+    'withHeader',
   ]);
 
   const tabs = createMemo(() => {
+    if (!internal.children) return [];
+
     return childrensToArray<() => Tab>(internal.children).map((tab) => tab());
   });
 
   const src = createMemo(() => {
     const url = new URL(internal.baseUrl || 'https://playground.solidjs.com');
-    url.hash = compressToEncodedURIComponent(JSON.stringify(tabs()));
 
-    if (!props.withHeader) url.searchParams.set('noHeader', 'true');
-    if (!props.isInteractive) url.searchParams.set('noInteractive', 'true');
+    if (!internal.withHeader) url.searchParams.set('noHeader', 'true');
+    if (!internal.isInteractive) url.searchParams.set('noInteractive', 'true');
+    if (internal.data) url.searchParams.set('data', internal.data);
+
+    if (tabs().length) {
+      url.hash = compressToEncodedURIComponent(JSON.stringify(tabs()));
+    }
 
     return url.toString();
   });
 
   return (
     <Show
-      when={tabs().length}
+      when={internal.data || tabs().length}
       fallback={<p>The REPL needs to have at least one tab</p>}
     >
       <iframe
@@ -104,6 +113,8 @@ export interface ReplOptions
   height?: number | string;
   isInteractive?: boolean;
   withHeader?: boolean;
+  data?: string;
+  children?: any;
 }
 
 export interface Tab {

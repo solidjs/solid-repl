@@ -3,19 +3,7 @@ import { render } from 'solid-js/web';
 
 const App = () => {
   return (
-    <Repl>
-      <ReplTab name="main">
-        {`
-          import { render } from 'solid-js/web';
-          import { App } from './app.tsx';
-          
-          render(App, document.getElementById('app'));
-        `}
-      </ReplTab>
-      <ReplTab name="app">
-        {'export const App = () => <h1>Hello world</h1>'}
-      </ReplTab>
-    </Repl>
+    <Repl height="50vh" data="https://dev.solidjs.com/examples/counter.json" />
   );
 };
 
