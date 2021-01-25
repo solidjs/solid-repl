@@ -1,7 +1,7 @@
 import { Show } from 'solid-js/web';
 import type { JSX } from 'solid-js';
 import { createMemo, splitProps } from 'solid-js';
-import { compressToEncodedURIComponent } from 'lz-string';
+import { compressToURL } from '@amoutonbrady/lz-string';
 
 function uid() {
   const [ts, rand] = [performance.now(), Math.random()].map((value) =>
@@ -80,7 +80,7 @@ export const Repl = (props: ReplOptions) => {
     if (internal.data) url.searchParams.set('data', internal.data);
 
     if (tabs().length) {
-      url.hash = compressToEncodedURIComponent(JSON.stringify(tabs()));
+      url.hash = compressToURL(JSON.stringify(tabs()));
     }
 
     return url.toString();
