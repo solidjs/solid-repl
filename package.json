@@ -9,6 +9,7 @@
     "type": "git",
     "url": "https://github.com/ryansolid/solid-repl.git"
   },
+  "solid": "dist/source/solid-repl.jsx",
   "source": "dist/source/solid-repl.jsx",
   "main": "dist/cjs/solid-repl.js",
   "module": "dist/esm/solid-repl.js",
