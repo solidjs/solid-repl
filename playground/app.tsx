@@ -1,4 +1,4 @@
-import { Repl, ReplTab } from '../src/solid-repl';
+import { Repl, ReplTab } from '..';
 import { render } from 'solid-js/web';
 
 const App = () => {
@@ -8,7 +8,7 @@ const App = () => {
         height="50vh"
         data="https://dev.solidjs.com/examples/counter.json"
       />
-      <Repl height="50vh">
+      <Repl height="50vh" isInteractive>
         <ReplTab name="main">
           {`
             const App = () => <h1>Hello world!</h1>
