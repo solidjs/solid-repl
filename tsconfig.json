@@ -10,7 +10,7 @@
     "jsx": "preserve",
     "resolveJsonModule": true,
     "newLine": "lf",
-    "outDir": "./dist/raw",
+    "outDir": "./dist/source",
     "sourceMap": true,
     "jsxImportSource": "solid-js"
   },

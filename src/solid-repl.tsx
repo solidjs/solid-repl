@@ -1,6 +1,5 @@
 import { Show } from 'solid-js/web';
-import type { JSX } from 'solid-js';
-import { createMemo, splitProps } from 'solid-js';
+import { JSX, createMemo, splitProps } from 'solid-js';
 import { compressToURL } from '@amoutonbrady/lz-string';
 
 function uid() {
