@@ -16,12 +16,10 @@ const config = {
     {
       dir: pkg.module.replace('/solid-repl.js', ''),
       format: 'esm',
-      sourcemap: true,
     },
     {
       dir: pkg.main.replace('/solid-repl.js', ''),
       format: 'cjs',
-      sourcemap: true,
     },
   ],
   external: ['solid-js', 'solid-js/web', '@amoutonbrady/lz-string'],
