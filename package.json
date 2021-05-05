@@ -4,55 +4,44 @@
   "author": "Alexandre Mouton-Brady",
   "license": "MIT",
   "version": "0.3.0",
-  "homepage": "https://github.com/ryansolid/solid-repl#readme",
+  "homepage": "https://github.com/solidui/solid-repl#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ryansolid/solid-repl.git"
+    "url": "https://github.com/solidui/solid-repl.git"
   },
-  "solid": "dist/source/solid-repl.jsx",
-  "source": "dist/source/solid-repl.jsx",
-  "main": "dist/cjs/solid-repl.js",
+	"type": "module",
+  "main": "dist/esm/solid-repl.js",
   "module": "dist/esm/solid-repl.js",
   "types": "dist/types/solid-repl.d.ts",
   "exports": {
     ".": {
       "solid": "./dist/source/solid-repl.jsx",
-      "import": "./dist/esm/solid-repl.js",
-      "browser": "./dist/esm/solid-repl.js",
-      "require": "./dist/cjs/solid-repl.js",
-      "node": "./dist/cjs/solid-repl.js"
+      "default": "./dist/esm/solid-repl.js"
     }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c && tsc",
+    "build": "rollup -c",
     "dev": "rollup -c -w",
     "format": "prettier --write \"src/**/*.{jsx,tsx,ts,js,json}\"",
     "test": "vite playground",
     "prepublishOnly": "pnpm build"
   },
   "peerDependencies": {
-    "solid-js": "^0.24"
+    "solid-js": "^0.26"
   },
   "dependencies": {
     "@amoutonbrady/lz-string": "^0.0.1",
-    "solid-js": "^0.24.13"
+    "solid-js": "^0.26.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.8",
-    "@babel/preset-typescript": "^7.13.0",
-    "@rollup/plugin-babel": "^5.3.0",
-    "@rollup/plugin-commonjs": "^17.1.0",
-    "@rollup/plugin-node-resolve": "^11.2.0",
-    "@types/lz-string": "^1.3.34",
-    "babel-preset-solid": "^0.24.13",
     "prettier": "^2.2.1",
-    "rollup": "^2.40.0",
-    "rollup-plugin-delete": "^2.0.0",
-    "typescript": "^4.2.3",
-    "vite": "^2.0.5",
-    "vite-plugin-solid": "^1.2.2"
+    "rollup": "^2.47.0",
+    "rollup-preset-solid": "^0.3.0",
+    "typescript": "^4.2.4",
+    "vite": "^2.2.4",
+    "vite-plugin-solid": "^1.6.1"
   }
 }

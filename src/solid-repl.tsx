@@ -67,7 +67,6 @@ export const Repl = (props: ReplOptions) => {
 
   const tabs = createMemo(() => {
     if (!internal.children) return [];
-
     return childrensToArray<() => Tab>(internal.children).map((tab) => tab());
   });
 
