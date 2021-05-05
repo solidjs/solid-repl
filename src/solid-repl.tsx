@@ -3,7 +3,7 @@ import { JSX, createMemo, splitProps } from 'solid-js';
 import { compressToURL } from '@amoutonbrady/lz-string';
 
 function uid() {
-  const [ts, rand] = [performance.now(), Math.random()].map((value) =>
+  const [ts, rand] = [Date.now(), Math.random()].map((value) =>
     value.toString(36),
   );
 
