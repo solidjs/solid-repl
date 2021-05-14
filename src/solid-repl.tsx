@@ -46,12 +46,12 @@ export const ReplTab = (props: {
   return createMemo(() => {
     const source = childrensToArray(props.children).join('');
 
-    return ({
+    return {
       id,
       name: props.name,
       source: formatCode(source),
       type: 'tsx',
-    } as unknown) as JSX.Element;
+    } as unknown as JSX.Element;
   });
 };
 
@@ -63,6 +63,9 @@ export const Repl = (props: ReplOptions) => {
     'children',
     'isInteractive',
     'withHeader',
+		'edtiableTabs',
+		'withActionBar',
+		'layout',
   ]);
 
   const tabs = createMemo(() => {
@@ -76,6 +79,9 @@ export const Repl = (props: ReplOptions) => {
     if (!internal.withHeader) url.searchParams.set('noHeader', 'true');
     if (!internal.isInteractive) url.searchParams.set('noInteractive', 'true');
     if (internal.data) url.searchParams.set('data', internal.data);
+		if (!internal.edtiableTabs) url.searchParams.set('noEditableTabs', 'true') 
+		if (!internal.withActionBar) url.searchParams.set('noActionBar', 'true') 
+		if (internal.layout === 'vertical') url.searchParams.set('isHorizontal', 'true') 
 
     if (tabs().length) {
       url.hash = compressToURL(JSON.stringify(tabs()));
@@ -111,6 +117,9 @@ export interface ReplOptions
   height?: number | string;
   isInteractive?: boolean;
   withHeader?: boolean;
+  withActionBar?: boolean;
+  layout?: 'vertical' | 'responsive';
+  edtiableTabs?: boolean;
   data?: string;
   children?: any;
 }
