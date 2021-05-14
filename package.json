@@ -3,7 +3,7 @@
   "description": "A REPL for SolidJS",
   "author": "Alexandre Mouton-Brady",
   "license": "MIT",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "homepage": "https://github.com/solidui/solid-repl#readme",
   "repository": {
     "type": "git",
