@@ -1,4 +1,8 @@
+
+
 # Solid REPL
+
+> ## /!\ This repo. is temporarly innactive. All of the work around both the REPL and the playground is taking place over at [https://github.com/solidjs/solid-playground](https://github.com/solidjs/solid-playground)
 
 A re-usable [solid](https://github.com/ryansolid/solid) component that provides an embedable REPL.
 
