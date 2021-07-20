@@ -97,6 +97,7 @@ export const Repl = (props: ReplOptions) => {
     >
       <iframe
         {...external}
+	title="Solid REPL"
         src={src()}
         style={{
           width: '100%',
